@@ -1,0 +1,138 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+		<title>Snake Game</title>
+	</head>
+
+	<body>
+		<canvas id="stage" width="600" height="600"></canvas>
+		<script type="text/javascript">
+			window.onload = function(){
+
+				var stage = document.getElementById('stage');
+				var ctx = stage.getContext('2d');
+				document.addEventListener("keydown", keyPush)
+				setInterval(game, 100);
+
+				const vel = 1;
+
+				var velX = velY = 0;
+				var positionX = 10;
+				var positionY = 15;
+				var dimensionPart = 30;
+				var quantPart = 20;
+				var appleX=appleY=15;
+
+				var trail = [];
+				tail = 5;
+
+				function game(){
+
+					positionX += velX;
+					positionY += velY;
+					
+					//borda
+					if (positionX < 0) {
+						positionX = quantPart -1;
+					}
+					if (positionX > quantPart -1) {
+						positionX = 0;
+					}
+					if (positionY < 0) {
+						positionY = quantPart -1;
+					}
+					if (positionY > quantPart -1) {
+						positionY = 0;
+					}
+
+					//scenario
+					ctx.fillStyle = "black";
+					ctx.fillRect(0,0, stage.width, stage.height);
+
+					//apple
+					ctx.fillStyle = "red";
+					ctx.fillRect (appleX*dimensionPart, appleY*dimensionPart, dimensionPart, dimensionPart);
+
+					//snake
+					ctx.fillStyle = "gray";
+					for (var i = 0; i < trail.length; i++) {
+						ctx.fillRect(trail[i].x*dimensionPart, trail[i].y*dimensionPart, dimensionPart-1, dimensionPart-1);
+						if (trail[i].x == positionX && trail[i].y == positionY) {
+							velX = velY = 0;
+							tail = 5;
+
+						}
+
+				       }
+
+					trail.push({ x:positionX, y:positionY })
+					while (trail.length > tail) {
+						 trail.shift();
+					}
+
+                    //snake - apple
+					if (appleX == positionX && appleY == positionY) {
+						tail++;
+						appleX = Math.floor(Math.random()*quantPart);
+						appleY = Math.floor(Math.random()*quantPart);
+
+			        }
+
+			    }
+
+			    function keyPush(event){
+
+			    	switch (event.keyCode) {
+			    		case 37: // left
+			    		     velX = -vel;
+			    		     velY = 0;
+			    		     break;
+			    		case 38: // up
+			    		     velX = 0;
+			    		     velY = -vel;
+			    		     break;
+			    		case 39: // right
+			    		     velX = vel;
+			    		     velY = 0;
+			    		     break;
+			    		case 40: // down
+			    		     velX = 0;
+			    		     velY = vel;
+			    		     break;
+			    		 default:
+			    		 
+			    		     break;    			    		    
+
+			    	}
+
+			    }
+
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</script>
+
+
+	</body>
+</html>
