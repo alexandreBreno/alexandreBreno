@@ -1,0 +1,25 @@
+ <body>
+      <h1> calcula média </h1>
+      
+      <form>
+        <label>nota:</label>
+        <input type="number">
+
+      
+        <button type="submit">registrar</button>
+      </form>
+
+      <section>
+        <h2>Média: <span id ="media">0</span></h2>
+        <h2>Aprovada? <span id = "Aprovada">Não</span></h2>
+        
+        <h2>Notas registradas</h2>
+
+
+        <ol id="registros">
+        </ol>
+      </section>
+
+      <script type="module" src="/main.js"></script>
+  </body>
+</html>
